@@ -1,0 +1,46 @@
+seed: 42
+
+data_dir: data
+output_dir: outputs/latent_sde
+checkpoint_dir: checkpoints
+
+train_file: X_train.npy
+test_file: X_test.npy
+
+# Latent-SDE training is solver-bound and slower than C3/C4; debug subset by
+# default. Set debug_mode: false for the full 1.41M-sequence training set.
+debug_mode: false
+debug_train_size: 50000
+debug_test_size: 10000
+
+sequence_length: 30
+n_features: 4
+
+# --- latent SDE architecture ---
+latent_dim: 4
+context_dim: 16
+enc_hidden_dim: 64
+drift_hidden_dim: 64
+diffusion_hidden_dim: 64
+min_diffusion: 0.05
+
+# --- SDE solver ---
+sde_method: euler          # Euler-Maruyama (Ito, diagonal noise)
+sde_substeps: 2            # solver sub-steps per observation interval -> dt = 1/((T-1)*substeps)
+
+# --- optimisation ---
+batch_size: 2048
+epochs: 10
+learning_rate: 0.001
+weight_decay: 0.000001
+gradient_clip: 1.0
+kl_anneal_epochs: 3
+num_workers: 0
+
+# --- scoring ---
+num_score_samples: 1       # Monte-Carlo latent draws per sequence when scoring
+threshold_quantiles: [0.90, 0.95, 0.99]
+score_columns:
+  - total_nll
+  - recon_nll
+  - kl
