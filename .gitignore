@@ -1,7 +1,6 @@
 data/*.npy
 data/*.csv
 outputs/latent_sde/
-outputs/latent_sde_debugmode_backup/
 checkpoints/*.pt
 __pycache__/
 *.pyc
