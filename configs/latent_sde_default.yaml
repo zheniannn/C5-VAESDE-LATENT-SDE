@@ -9,7 +9,7 @@ test_file: X_test.npy
 
 # Latent-SDE training is solver-bound and slower than C3/C4; debug subset by
 # default. Set debug_mode: false for the full 1.41M-sequence training set.
-debug_mode: false
+debug_mode: true
 debug_train_size: 50000
 debug_test_size: 10000
 
